@@ -1,4 +1,4 @@
-# `<LightboxGrid>` for admin-on-rest
+# `<LightboxGrid>` for react-admin
 
 <LightboxGrid> component for react-admin, that will add a Lightbox to all imagefields in the grid.
 
