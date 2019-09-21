@@ -40,8 +40,9 @@
     "cross-env": "^5.2.0"
   },
   "dependencies": {
-    "react": "^16.0.0",
+    "react": "^16.8.1",
     "react-admin": "^2.5.2",
+    "react-dom": "^16.8.1",
     "react-images": "^0.5.19"
   }
 }
