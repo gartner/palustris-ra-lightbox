@@ -1,111 +1,90 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import Lightbox from 'react-images';
 import { Datagrid } from 'react-admin';
 import PropTypes from 'prop-types';
 
-export class LightboxGrid extends Component {
-    static propTypes = {
-        imageSource: PropTypes.string.isRequired,
+export function LightboxGrid(props) {
+    const [images, setImages] = useState([]);
+    const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
+    const [currentImage, setCurrentImage] = useState(0);
+
+    let imgField = "";
+
+    const openLightbox = (event, currentImage) => {
+        setCurrentImage(currentImage);
+        setImages(getImages());
+        setLightboxIsOpen(true);
     };
 
-    state = {
-        images: [],
-        lightboxIsOpen: false,
-        currentImage: 0,
+    const closeLightbox = () => {
+        setCurrentImage(0);
+        setLightboxIsOpen(false);
     };
 
-    imgField = "";
+    const gotoPrevious = () => {
+        setCurrentImage(currentImage - 1);
+    };
 
-    constructor(props) {
-        super(props);
+    const gotoNext = () => {
+        setCurrentImage(currentImage + 1);
+    };
 
-        this.onClick = this.onClick.bind(this);
-        this.closeLightbox = this.closeLightbox.bind(this);
-        this.openLightbox = this.openLightbox.bind(this);
-        this.gotoNext = this.gotoNext.bind(this);
-        this.gotoPrevious = this.gotoPrevious.bind(this);
-    }
-
-    openLightbox(event, currentImage) {
-        this.setState({
-            currentImage: currentImage,
-            images: this.getImages(),
-            lightboxIsOpen: true,
-        });
-    }
-
-    closeLightbox() {
-        this.setState({
-            currentImage: 0,
-            lightboxIsOpen: false,
-        });
-    }
-
-    gotoPrevious() {
-        this.setState({
-            currentImage: this.state.currentImage - 1,
-        });
-    }
-
-    gotoNext() {
-        this.setState({
-            currentImage: this.state.currentImage + 1,
-        });
-    }
-
-    onClick(event) {
+    const onClick = (event) => {
         event.stopPropagation();
 
-        const imgNum = this.getShownRecords().findIndex(record => (record[this.imgField] === event.target.src));
+        const imgNum = getShownRecords().findIndex(record => (record[imgField] === event.target.src));
 
-        this.openLightbox(event, imgNum);
+        openLightbox(event, imgNum);
+    };
 
-    }
-
-    getShownRecords = () => {
+    const getShownRecords = () => {
         const {
             ids,
             data
-        } = this.props;
+        } = props;
 
         return ids.map((id, rowIndex) => data[id]);
-    }
-
-    getImages = () => {
-        return Object.entries(this.getShownRecords()).map(record => ({src: record[1][this.props.imageSource]}));
     };
 
-    render() {
-        const {
-            imageSource,
-            ...props
-        } = this.props;
+    const getImages = () => {
+        return Object.entries(getShownRecords()).map(record => ({src: record[1][props.imageSource]}));
+    };
 
-        const wrappedChildren = React.Children.map(this.props.children, c => {
-            if (c.type.Naked && c.type.Naked.name === 'ImageField') {
-                const rv = React.cloneElement(c, {onClick: this.onClick});
-                // Save the source-field of the ImageField, to be used later
-                this.imgField = rv.props.source;
-                return rv;
-            }
+    const {
+        imageSource,
+        ...rest
+    } = props;
 
-            return c;
-        });
+    const wrappedChildren = React.Children.map(props.children, c => {
+        if (c.type.name && c.type.name === 'ImageField') {
+            const rv = React.cloneElement(c, {onClick: onClick});
+            // Save the source-field of the ImageField, to be used later
+            imgField = rv.props.source;
+            return rv;
+        }
+        return c;
+    });
 
-        return (
-            <div>
-                <Datagrid {...props}>
-                    {wrappedChildren}
-                </Datagrid>
-                <Lightbox images={this.state.images}
-                          isOpen={this.state.lightboxIsOpen}
-                          currentImage={this.state.currentImage}
-                          onClose={this.closeLightbox}
-                          onClickPrev={this.gotoPrevious}
-                          onClickNext={this.gotoNext}
-                          backdropClosesModal={true}
-                />
-            </div>
-        );
-    }
+    return (
+        <React.Fragment>
+
+            <Datagrid {...rest}>
+                {wrappedChildren}
+            </Datagrid>
+
+            <Lightbox images={images}
+                      isOpen={lightboxIsOpen}
+                      currentImage={currentImage}
+                      onClose={closeLightbox}
+                      onClickPrev={gotoPrevious}
+                      onClickNext={gotoNext}
+                      backdropClosesModal={true}
+            />
+
+        </React.Fragment>
+    );
 }
+
+LightboxGrid.propTypes = {
+    imageSource: PropTypes.string.isRequired,
+};

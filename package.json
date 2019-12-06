@@ -39,10 +39,12 @@
     "babel-preset-stage-0": "^6.16.0",
     "cross-env": "^5.2.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.9",
-    "react-admin": "^3.0",
     "react-dom": "^16.9",
+    "react-admin": "^3.0"
+  },
+  "dependencies": {
     "react-images": "^1.0.0"
   }
 }
