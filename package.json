@@ -1,6 +1,6 @@
 {
   "name": "@palustris/ra-lightboxgrid",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "<LightboxGrid /> component for react-admin",
   "main": "lib/LightboxGrid.js",
   "scripts": {
@@ -45,6 +45,6 @@
     "react-dom": "^16.9 || ^17.0"
   },
   "dependencies": {
-    "react-images": "^1.1.7"
+    "@palustris/react-images": "^1.2.0"
   }
 }
