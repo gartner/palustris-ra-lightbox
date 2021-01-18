@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Lightbox from 'react-images';
 import { Datagrid } from 'react-admin';
 import PropTypes from 'prop-types';
 import Carousel, { Modal, ModalGateway } from '@palustris/react-images';
