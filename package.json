@@ -1,6 +1,6 @@
 {
   "name": "@palustris/ra-lightboxgrid",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "<LightboxGrid /> component for react-admin",
   "main": "lib/LightboxGrid.js",
   "scripts": {
