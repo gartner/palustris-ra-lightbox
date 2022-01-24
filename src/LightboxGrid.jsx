@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { Datagrid } from 'react-admin';
+import {Datagrid, SingleFieldList} from 'react-admin';
 import PropTypes from 'prop-types';
-import Carousel, { Modal, ModalGateway } from '@palustris/react-images';
+import Carousel, {Modal, ModalGateway} from '@palustris/react-images';
 
 export function LightboxGrid(props)
 {
@@ -35,11 +35,12 @@ export function LightboxGrid(props)
 
     const {
         imageSource,
+        type,
         ...rest
     } = props;
 
     const wrappedChildren = React.Children.map(props.children, c => {
-        if (c.type.name && c.type.name === 'ImageField') {
+        if (c && c.type.name && c.type.name === 'ImageField') {
             const rv = React.cloneElement(c, {onClick: onClick});
             // Save the source-field of the ImageField, to be used later
             imgField = rv.props.source;
@@ -59,20 +60,35 @@ export function LightboxGrid(props)
         setLightboxIsOpen(false);
     };
 
-
     return (
         <React.Fragment>
 
-            <Datagrid {...rest}>
-                {wrappedChildren}
-            </Datagrid>
+            {(() => {
+                if (type === 'list') {
+                    return (
+                        <SingleFieldList {...rest} linkType={false}>
+                            {wrappedChildren[0]}
+                        </SingleFieldList>
+                    );
+                }
+                return (
+                    <Datagrid {...rest}>
+                        {wrappedChildren}
+                    </Datagrid>
+                )
+            })()}
 
             <ModalGateway>
                 {lightboxIsOpen ? (
                     <Modal onClose={closeLightbox}>
                         <Carousel views={images}
                                   currentIndex={currentImage}
-                                  styles={{ view: (base, state) => ({ ...base, height: "90vh" }) }}
+                                  styles={{
+                                      view: (base, state) => ({
+                                          ...base,
+                                          height: "90vh"
+                                      })
+                                  }}
                         />
                     </Modal>
                 ) : null}
@@ -84,4 +100,5 @@ export function LightboxGrid(props)
 
 LightboxGrid.propTypes = {
     imageSource: PropTypes.string.isRequired, // The name of the field that contains the url of the image
+    type: PropTypes.string,
 };
