@@ -9,9 +9,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@palustris/react-images@https://github.com/gartner/react-images.git#master":
+"@palustris/react-images@^1.2.0":
   version "1.2.3"
-  resolved "https://github.com/gartner/react-images.git#9c831e90330647cb28811ce979259501a68c353d"
+  resolved "https://registry.yarnpkg.com/@palustris/react-images/-/react-images-1.2.3.tgz#e0332b3edeb0a5f5fcd7a58f0c63223c5d8a0ef4"
+  integrity sha512-8m9J3iHXArnw2CEmfqXIZSQUrZvYy9QramMSHUnl/NBBEoX5jZ29lfROTmZMRYMD48ub6ABj8Xd3sP2Vbf7vFQ==
   dependencies:
     a11y-focus-store "^1.0.0"
     cross-env "^7.0.3"
@@ -1425,9 +1426,9 @@ globals@^9.18.0:
   integrity sha512-S0nG3CLEQiY/ILxqtztTWH/3iRRdyBLw6KMDxnKMchrtbj2OFmehVh0WUCfW3DUrIgx/qFrJPICrq4Z4sTR9UQ==
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.4:
-  version "4.2.9"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
-  integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
+  version "4.2.10"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
+  integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
 has-ansi@^2.0.0:
   version "2.0.0"
