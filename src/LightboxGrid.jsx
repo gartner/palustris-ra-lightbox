@@ -1,14 +1,25 @@
 import React, {useState} from 'react';
-import {Datagrid, SingleFieldList} from 'react-admin';
+import {Datagrid, SingleFieldList, useListContext, useChoicesContext} from 'react-admin';
 import PropTypes from 'prop-types';
 import Carousel, {Modal, ModalGateway} from '@palustris/react-images';
 
 export function LightboxGrid(props)
 {
+    const { data, isLoading, ...list } = useListContext();
+    const { allChoices, ...choc} = useChoicesContext();
 
     const [images, setImages] = useState([]);
     const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
+
+    if (isLoading) {
+        return null;
+    }
+
+    console.log(allChoices);
+
+    console.log(data);
+    return (<div/>);
 
     let imgField = "";
 
@@ -30,7 +41,11 @@ export function LightboxGrid(props)
     };
 
     const getImages = () => {
-        return Object.entries(getShownRecords()).map(record => ({src: record[1][props.imageSource]}));
+        const images = Object.entries(getShownRecords()).map(record => ({src: record[1][props.imageSource]}));
+        if (!images) {
+            return [];
+        }
+        return images;
     };
 
     const {
@@ -60,6 +75,7 @@ export function LightboxGrid(props)
         setLightboxIsOpen(false);
     };
 
+    console.log(rest);
     return (
         <React.Fragment>
 
