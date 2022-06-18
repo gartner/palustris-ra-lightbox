@@ -3,50 +3,12 @@ import {Datagrid, SingleFieldList, useListContext, useChoicesContext} from 'reac
 import PropTypes from 'prop-types';
 import Carousel, {Modal, ModalGateway} from '@palustris/react-images';
 
-export function LightboxGrid(props)
-{
-    const { data, isLoading, ...list } = useListContext();
-    const { allChoices, ...choc} = useChoicesContext();
+export function LightboxGrid(props) {
+    const { data, isLoading } = useListContext();
 
     const [images, setImages] = useState([]);
     const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
-
-    if (isLoading) {
-        return null;
-    }
-
-    console.log(allChoices);
-
-    console.log(data);
-    return (<div/>);
-
-    let imgField = "";
-
-    const onClick = (event) => {
-        event.stopPropagation();
-
-        const imgNum = getShownRecords().findIndex(record => (record[imgField] === event.target.src));
-
-        openLightbox(event, imgNum);
-    };
-
-    const getShownRecords = () => {
-        const {
-            ids,
-            data
-        } = props;
-
-        return ids.map((id, rowIndex) => data[id]);
-    };
-
-    const getImages = () => {
-        const images = Object.entries(getShownRecords()).map(record => ({src: record[1][props.imageSource]}));
-        if (!images) {
-            return [];
-        }
-        return images;
-    };
 
     const {
         imageSource,
@@ -54,11 +16,36 @@ export function LightboxGrid(props)
         ...rest
     } = props;
 
+    if (isLoading) {
+        return null;
+    }
+
+    // Store the name of the 'source'-prop from the child ImageField
+    let imageFieldSource = "";
+
+    const onClick = (event) => {
+        event.stopPropagation();
+
+        const imgNum = data.findIndex(record => (record[imageFieldSource] === event.target.src));
+
+        openLightbox(event, imgNum);
+    };
+
+    const getImages = () => {
+        const images = data.map(record => ({...record, src: record[imageSource]}));
+        if (!images) {
+            return [];
+        }
+
+        return images;
+    };
+
     const wrappedChildren = React.Children.map(props.children, c => {
         if (c && c.type.name && c.type.name === 'ImageField') {
             const rv = React.cloneElement(c, {onClick: onClick});
             // Save the source-field of the ImageField, to be used later
-            imgField = rv.props.source;
+            imageFieldSource = rv.props.source;
+            // console.log(imgField);
             return rv;
         }
         return c;
@@ -75,14 +62,14 @@ export function LightboxGrid(props)
         setLightboxIsOpen(false);
     };
 
-    console.log(rest);
     return (
-        <React.Fragment>
+        <>
 
             {(() => {
                 if (type === 'list') {
+
                     return (
-                        <SingleFieldList {...rest} linkType={false}>
+                        <SingleFieldList linkType={false}>
                             {wrappedChildren[0]}
                         </SingleFieldList>
                     );
@@ -109,7 +96,7 @@ export function LightboxGrid(props)
                     </Modal>
                 ) : null}
             </ModalGateway>
-        </React.Fragment>
+        </>
     );
 
 }
