@@ -5,7 +5,8 @@
   "main": "lib/LightboxGrid.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production babel ./src -d lib"
+    "build": "cross-env NODE_ENV=production babel ./src -d lib",
+    "watch": "cross-env NODE_ENV=production babel ./src --watch -d lib"
   },
   "files": [
     "LICENSE",
@@ -15,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gartner/palustris-lightboxgrid.git"
+    "url": "git+https://github.com/gartner/palustris-ra-lightbox.git"
   },
   "keywords": [
     "reactjs",
@@ -27,9 +28,9 @@
   "author": "Mads Lie Jensen <mads@gartneriet.dk>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gartner/palustris-lightboxgrid/issues"
+    "url": "https://github.com/gartner/palustris-ra-lightbox/issues"
   },
-  "homepage": "https://github.com/gartner/palustris-lightbox#readme",
+  "homepage": "https://github.com/gartner/palustris-ra-lightbox",
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.8",
@@ -40,13 +41,12 @@
     "cross-env": "^7.0.3"
   },
   "peerDependencies": {
-    "react": "^16.9 || ^17.0",
-    "react-admin": "^4.0.0-rc.1",
-    "react-dom": "^16.9 || ^17.0"
+    "react": "^16.9 || ^17.0 || ^18.0",
+    "react-admin": "^4.0.0",
+    "react-dom": "^16.9 || ^17.0 || ^18.0"
   },
   "dependencies": {
     "@palustris/react-images": "^1.2.0",
-    "react-admin": "^4.0.0-rc.1",
     "prop-types": "^15.8.1"
   }
 }
