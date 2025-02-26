@@ -1,6 +1,6 @@
 {
   "name": "@palustris/ra-lightboxgrid",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "<LightboxGrid /> component for react-admin",
   "main": "lib/LightboxGrid.js",
   "scripts": {
@@ -41,9 +41,9 @@
     "cross-env": "^7.0.3"
   },
   "peerDependencies": {
-    "react": "^16.9 || ^17.0 || ^18.0",
-    "react-admin": "^4.0.0",
-    "react-dom": "^16.9 || ^17.0 || ^18.0"
+    "react": "^17.0 || ^18.0 || ^19.0",
+    "react-admin": "^4.0.0 || ^5.0",
+    "react-dom": "^17.0 || ^18.0 || ^19.0"
   },
   "dependencies": {
     "@palustris/react-images": "^1.2.0",
